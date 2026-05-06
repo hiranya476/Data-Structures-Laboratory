@@ -1,0 +1,72 @@
+// Write your code here
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+    int data;
+    Node*next;
+    Node(int val){
+        data=val;
+        next=NULL;
+    }
+};
+class Crclrlst{
+    public:
+    Node* head;
+    Crclrlst(){
+        head=NULL;
+    }
+    void insertend(int val){
+        Node *newnode=new Node(val);
+        if(head==NULL){
+            head=newnode;
+            newnode->next=head;
+            return;
+        }
+        Node *temp=head;
+        while(temp->next!=head){
+            temp=temp->next;
+        }
+        temp->next=newnode;
+        newnode->next=head;
+    }
+    void deletefirst(){
+        if(head==NULL){
+            return;
+        }
+        if(head->next==head){
+            delete head;
+            head=NULL;
+            return;
+        }
+        Node *last=head;
+        while(last->next!=head){
+            last=last->next;
+        }
+        Node *temp=head;
+        head=head->next;
+        last->next=head;
+    }
+    void display(){
+        if(head==NULL){
+            return;
+        }
+        Node* temp=head;
+        do{
+            cout<<temp->data<<" ";
+            temp=temp->next;
+        }while(temp!=head);
+    }
+};
+int main(){
+    int n,m;
+    cin>>n;
+    Crclrlst clst;
+    for(int i=0;i<n;i++){
+        cin>>m;
+        clst.insertend(m);
+    }
+    clst.deletefirst();
+    clst.display();
+    return 0;
+}
